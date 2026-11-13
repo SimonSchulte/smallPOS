@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kasse-stand",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    // Nur /api/* läuft durch den Worker, statische Dateien liefert Cloudflare direkt aus.
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kasse-stand",
+      "migrations_dir": "migrations"
+      // database_id wird beim ersten `wrangler deploy` automatisch angelegt und eingetragen.
+    }
+  ],
+  "observability": { "enabled": true }
+}
